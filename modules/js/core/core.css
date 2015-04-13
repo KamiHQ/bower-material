@@ -2,7 +2,7 @@
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v0.8.3-master-9affd12
+ * v0.8.3-notable
  */
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic');
 /* mixin definition ; sets LTR and RTL within the same style call */
@@ -32,7 +32,7 @@
 [layout-padding] > [flex-sm], [layout-padding] > [flex-lt-md] {
   padding: 4px; }
 
-[layout-padding], [layout-padding] > [flex], [layout-padding] > [flex-gt-sm] [layout-padding] > [flex-md], [layout-padding] > [flex-lt-lg] {
+[layout-padding], [layout-padding] > [flex], [layout-padding] > [flex-gt-sm], [layout-padding] > [flex-md], [layout-padding] > [flex-lt-lg] {
   padding: 8px; }
 
 [layout-padding] > [flex-gt-md], [layout-padding] > [flex-lg] {
@@ -41,7 +41,7 @@
 [layout-margin] > [flex-sm], [layout-margin] > [flex-lt-md] {
   margin: 4px; }
 
-[layout-margin], [layout-margin] > [flex] [layout-margin] > [flex-gt-sm] [layout-margin] > [flex-md], [layout-margin] > [flex-lt-lg] {
+[layout-margin], [layout-margin] > [flex], [layout-margin] > [flex-gt-sm], [layout-margin] > [flex-md], [layout-margin] > [flex-lt-lg] {
   margin: 8px; }
 
 [layout-margin] > [flex-gt-md], [layout-margin] > [flex-lg] {
