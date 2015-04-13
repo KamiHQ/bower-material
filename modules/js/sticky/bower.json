@@ -1,8 +1,8 @@
 {
   "name": "angular-material-sticky",
-  "version": "0.8.3-notable",
+  "version": "0.8.3-notable.2",
   "dependencies": {
-    "angular-material-core": "0.8.3-notable",
-    "angular-material-content": "0.8.3-notable"
+    "angular-material-core": "0.8.3-notable.2",
+    "angular-material-content": "0.8.3-notable.2"
   }
 }
