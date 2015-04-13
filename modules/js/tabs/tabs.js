@@ -446,10 +446,8 @@ angular.module('material.components.tabs', [
             { height: newHeight + 'px'}
           )
           .then(function () {
-            $timeout(function () {
-              $element.css('height', '');
-              locked = false;
-            }, 0, false);
+            $element.css('height', '');
+            locked = false;
           });
     }
 

@@ -39,5 +39,9 @@ md-radio-group.md-THEME_NAME-theme[disabled], md-radio-button.md-THEME_NAME-them
   md-radio-group.md-THEME_NAME-theme[disabled] .md-container .md-on, md-radio-button.md-THEME_NAME-theme[disabled] .md-container .md-on {
     border-color: '{{foreground-3}}'; }
 
-md-radio-group.md-THEME_NAME-theme:focus:not(:empty) {
-  border-color: '{{foreground-1}}'; }
+md-radio-group.md-THEME_NAME-theme.md-focused:not(:empty) .md-checked .md-container:before {
+  background-color: '{{accent-color-0.26}}'; }
+md-radio-group.md-THEME_NAME-theme.md-focused:not(:empty) .md-checked:not([disabled]).md-primary .md-container:before {
+  background-color: '{{primary-color-0.26}}'; }
+md-radio-group.md-THEME_NAME-theme.md-focused:not(:empty) .md-checked.md-primary .md-container:before {
+  background-color: '{{warn-color-0.26}}'; }

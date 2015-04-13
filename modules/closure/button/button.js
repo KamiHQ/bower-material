@@ -114,9 +114,9 @@ function MdButtonDirective($mdInkRipple, $mdTheming, $mdAria, $timeout) {
         }, 100);
       })
       .on('focus', function() {
-        if(scope.mouseActive === false) element.addClass('focus');
+        if(scope.mouseActive === false) { element.addClass('md-focused'); }
       })
-      .on('blur', function() { element.removeClass('focus'); });
+      .on('blur', function() { element.removeClass('md-focused'); });
   }
 
 }
