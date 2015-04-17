@@ -2,7 +2,7 @@
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v0.8.3-notable.2
+ * v0.9.0-rc1-notable
  */
 (function() {
 'use strict';
@@ -74,7 +74,7 @@ mdListDirective.$inject = ["$mdTheming"];
  * </hljs>
  *
  */
-function mdListItemDirective($mdAria) {
+function mdListItemDirective($mdAria, $mdConstant) {
   var proxiedTypes = ['md-checkbox', 'md-switch'];
   return {
     restrict: 'E',
@@ -138,12 +138,19 @@ function mdListItemDirective($mdAria) {
 
         if (secondaryItem && secondaryItem.hasAttribute('ng-click')) {
           $mdAria.expect(secondaryItem, 'aria-label');
+          var buttonWrapper = angular.element('<md-button class="md-secondary-container">');
+          buttonWrapper.attr('ng-click', secondaryItem.getAttribute('ng-click'));
+          secondaryItem.removeAttribute('ng-click');
+          secondaryItem.setAttribute('tabindex', '-1');
+          secondaryItem.classList.remove('md-secondary');
+          buttonWrapper.append(secondaryItem);
+          secondaryItem = buttonWrapper[0];
         }
 
         // Check for a secondary item and move it outside
         if ( secondaryItem && (
-          secondaryItem.hasAttribute('ng-click') || 
-            ( tAttrs.ngClick && 
+          secondaryItem.hasAttribute('ng-click') ||
+            ( tAttrs.ngClick &&
              isProxiedElement(secondaryItem) )
         )) {
           tEl.addClass('md-with-secondary');
@@ -169,9 +176,9 @@ function mdListItemDirective($mdAria) {
             proxy = angular.element(proxy);
             proxy.on('focus', function() {
               $element.addClass('md-focused');
-              proxy.on('blur', function() {
+              proxy.on('blur', function proxyOnBlur() {
                 $element.removeClass('md-focused');
-                proxy.off('blur');
+                proxy.off('blur', proxyOnBlur);
               });
             });
           });
@@ -187,17 +194,19 @@ function mdListItemDirective($mdAria) {
           }
         }
         function computeClickable() {
-          if (proxies.length || $element[0].firstElementChild.hasAttribute('ng-click')) { 
+          if (proxies.length || $element[0].firstElementChild.hasAttribute('ng-click')) {
             $element.addClass('md-clickable');
           }
         }
 
         if (!$element[0].firstElementChild.hasAttribute('ng-click') && !proxies.length) {
           $element[0].firstElementChild.addEventListener('keypress', function(e) {
-            if (e.keyCode == 13 || e.keyCode == 32) {
-              $element[0].firstElementChild.click();
-              e.preventDefault();
-              e.stopPropagation();
+            if (e.target.nodeName != 'INPUT') {
+              if (e.keyCode == $mdConstant.KEY_CODE.SPACE) {
+                $element[0].firstElementChild.click();
+                e.preventDefault();
+                e.stopPropagation();
+              }
             }
           });
         }
@@ -221,5 +230,5 @@ function mdListItemDirective($mdAria) {
     }
   };
 }
-mdListItemDirective.$inject = ["$mdAria"];
+mdListItemDirective.$inject = ["$mdAria", "$mdConstant"];
 })();

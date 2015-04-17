@@ -2,7 +2,7 @@
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v0.8.3-notable.2
+ * v0.9.0-rc1-notable
  */
 (function() {
 'use strict';
@@ -556,6 +556,7 @@ angular.module('material.core')
       }
 
       var wrapperEl = angular.element('<div>');
+      disableTarget.addClass('md-overflow-wrapper-shown');
       wrapperEl.append(disableTarget.children());
       disableTarget.append(wrapperEl);
 
@@ -572,14 +573,28 @@ angular.module('material.core')
       wrapperEl.css({
         overflow: 'hidden',
         position: 'fixed',
-        width: '100%',
+        display: computedStyle.display,
         'padding-top': computedStyle.paddingTop,
-        top: (-1 * heightOffset) + 'px'
+        top: (-1 * heightOffset) + 'px',
+        'min-height': '100%',
+        width: '100%'
       });
+
+
+      computeSize();
+
+      angular.element($window).on('resize', computeSize);
+
+      function computeSize() {
+        wrapperEl.css({
+          'max-width': disableTarget[0].offsetWidth + 'px'
+        });
+      }
 
       return function restoreScroll() {
         disableTarget.append(wrapperEl.children());
         wrapperEl.remove();
+        angular.element($window).off('resize', computeSize);
         if (scrollBarsShowing) {
           disableTarget.css('overflow-y', restoreOverflowY || false);
         }
@@ -2037,6 +2052,9 @@ function InterimElementProvider() {
               if (!(options.parent || {}).length) {
                 options.parent = $rootElement.find('body');
                 if (!options.parent.length) options.parent = $rootElement;
+                if (options.parent[0].nodeName == '#comment') {
+                  options.parent = $document.find('body');
+                }
               }
 
               if (options.themable) $mdTheming(element);
@@ -3058,8 +3076,8 @@ angular.module('material.core.theming', ['material.core.theming.palette'])
  */
 
 // In memory storage of defined themes and color palettes (both loaded by CSS, and user specified)
-var PALETTES = { };
-var THEMES = { };
+var PALETTES;
+var THEMES;
 var GENERATED;
 
 var DARK_FOREGROUND = {

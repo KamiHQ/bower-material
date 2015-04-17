@@ -2,7 +2,7 @@
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v0.8.3-notable.2
+ * v0.9.0-rc1-notable
  */
 goog.provide('ng.material.components.checkbox');
 goog.require('ng.material.core');
@@ -108,8 +108,7 @@ function MdCheckboxDirective(inputDirective, $mdInkRipple, $mdAria, $mdConstant,
       }, attr, [ngModelCtrl]);
 
       scope.mouseActive = false;
-      element
-        .on('click', listener)
+      element.on('click', listener)
         .on('keypress', keypressHandler)
         .on('mousedown', function() {
           scope.mouseActive = true;
